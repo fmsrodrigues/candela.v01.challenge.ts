@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ClientInvoice {
+  id                               String   @id @default(uuid())
+  clientId                         String   @map("client_id")
+  invoiceDate                      DateTime @map("invoice_date")
+  eletricalEnergyKWH               Int      @map("eletrical_energy_kwh")
+  eletricalEnergyPrice             Int      @map("eletrical_energy_price")
+  eletricalSCEEEWithoutICMSKWH     Int      @map("eletrical_sceee_without_icms_kwh")
+  eletricalSCEEEWithoutICMSPrice   Int      @map("eletrical_sceee_without_icms_price")
+  eletricalCompensatedGDIKWH       Int      @map("eletrical_compensated_gdi_kwh")
+  municipalPublicContributionPrice Int      @map("municipal_public_contribution_price")
+  invoiceFileUrl                   String?  @map("invoice_file_url")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("clients_invoices")
+}
